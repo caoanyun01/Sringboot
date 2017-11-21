@@ -1,0 +1,9 @@
+<#list contents as content>
+ <tr>
+  <th scope="row">${content.id}</th>
+  <td><a href="">${content.title}</a></td>
+  <td>${content.username}</td>
+  <th>${content.createTime}</th>
+  <td><button class="del" data-opid="${content.id}">delete</button></td>
+ </tr>
+</#list>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mengke.mapper.user.IUsermapper">
+	<select id="getUser" resultType="user">
+		select id,username,PASSWORD from mk_backuser
+	</select>
+	<select id="user" resultType="user" parameterType="user">
+		SELECT
+			id,
+			username,
+			email,
+			phone,
+			cname,
+			name,
+			tel,
+			province,
+			city,
+			address,
+			status,
+			head_pic as headerPic
+		FROM
+			mk_backuser
+		WHERE
+			username = #{username}
+		AND `password` = #{password}
+	</select>
+</mapper>

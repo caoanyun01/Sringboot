@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>轮播图</title>
+<!-- 引入公共样式 -->
+<#include "/public/common.html">
+<style>
+/*分页相关*/
+.tzPage {
+	font-size: 12px;
+	margin-top: 5px;
+}
+
+.tzPage a {
+	text-decoration: none;
+	border: solid 1px #ccc;
+	color: #999;
+}
+
+.tzPage a, .tzPage span {
+	display: block;
+	float: left;
+	padding: 0em 0.5em;
+	margin-right: 5px;
+	margin-bottom: 5px;
+	min-width: 1em;
+	text-align: center;
+	line-height: 22px;
+	height: 22px;
+}
+
+.tzPage .current {
+	background: #e5e5e5;
+	color: #999;
+	border: solid 1px #e5e5e5;
+}
+
+.tzPage .current.prev, .tzPage .current.next {
+	color: #999;
+	border: 1px solid #e5e5e5;
+	background: #fff;
+}
+
+.tm_psize_go {
+	margin-right: 4px;
+	float: left;
+	height: 24px;
+	line-height: 33px;
+	position: relative;
+	border: 1px solid #e5e5e5;
+	color: #999
+}
+
+#tm_pagego {
+	height: 22px;
+	width: 30px;
+	float: left;
+	text-align: center;
+	border: 1px solid #e5e5e5;
+	line-height: 22px;
+	color: #999
+}
+
+.sortdesc {
+	border-top: 5px solid;
+	width: 0px;
+	height: 0px;
+	display: inline-block;
+	vertical-align: middle;
+	border-right: 5px solid transparent;
+	border-left: 5px solid transparent;
+	margin-left: 5px;
+}
+
+.sortasc {
+	border-bottom: 5px solid;
+	width: 0px;
+	height: 0px;
+	display: inline-block;
+	vertical-align: middle;
+	border-right: 5px solid transparent;
+	border-left: 5px solid transparent;
+	margin-left: 5px;
+}
+</style>
+</head>
+<body data-totalNum="${count}"
+	class="site-menubar-fold site-menubar-keep">
+	<!-- 引入一个左边导航栏-->
+	<#include "left.html">
+	<div class="page profile profile_index">
+		<div class="page-content">
+			<div class="row">
+
+				<div class=" col-lg-12 col-md-12">
+					<div class="nav-tabs-horizontal nav-tabs-inverse">
+						<ul class="nav nav-tabs nav-tabs-solid profile_nav"
+							id="nav-tabs-solidlist">
+							<li class="active"><a href="javascript:void(0);"
+								class="padding-horizontal-30"> <i
+									class="iconfont icon-vip fz20 tp1"></i>详情页面
+							</a></li>
+							<li><a href="javascript:void(0);"
+								class="padding-horizontal-30"> <i
+									class="iconfont icon-xingxing fz20 tp1"></i>文章添加
+							</a></li>
+						</ul>
+						<div>
+							<div class=" tab-contentc tab-content">
+								<div class="row">
+									<div class="col-md-12">
+										<table class="table table-hover">
+											<thead>
+												<tr>
+													<th>ID</th>
+													<th>文章标题</th>
+													<th>图片</th>
+													<th>状态</th>
+													<th>编辑</th>
+												</tr>
+											</thead>
+											<tbody id="tbody">
+
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+							<div class="tab-contentc" style="display: none">234565678798</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 卡片分页的div -->
+	<div class="mkui-page" style="float: right;"></div>
+	<script src="${basePath}/js/page/mk_page.js"></script> 
+	<script src="${basePath}/js/upload/jquery.ui.widget.js"></script>
+	<script src="${basePath}/js/upload/jquery.iframe-transport.js"></script>
+	<script src="${basePath}/js/upload/jquery.fileupload.js"></script>
+	<script src="${basePath}/js/banner/bannerList.js"></script>
+</body>
+</html>

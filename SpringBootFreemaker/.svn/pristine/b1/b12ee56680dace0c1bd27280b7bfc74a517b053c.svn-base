@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>分类-IT书</title>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport"
+	content="width=device-width,initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<link rel="stylesheet" href="${basePath}/css/center.css" />
+<link rel="stylesheet" type="text/css"
+	href="http://localhost:8080/iconfont/iconfont.css" />
+<style type="text/css">
+.tabs {
+	display: none;
+}
+</style>
+</head>
+<body class="site-menubar-fold site-menubar-keep">
+	<!-- 引入左侧导航栏 -->
+	<#include "/left.html">
+	<div class="page profile profile_index">
+		<div class="page-content">
+			<div class="row">
+				<div class="col-lg-12 col-md-12">
+					<div class="nav-tabs-horizontal nav-tabs-inverse">
+						<ul class="nav nav-tabs nav-tabs-solid profile_nav"
+							id="nav-tabs-solidlist">
+							<li class="active"><a href="javascript:void(0);"
+								class="padding-horizontal-30"> <i
+									class="iconfont icon-vip fz20 tp1"> </i>所有分类
+							</a></li>
+							<li><a href="javascript:void(0);"
+								class="padding-horizontal-30"> <i
+									class="iconfont icon-like fz20 tp1"></i>添加分类
+							</a>
+						</ul>
+						<div class="tab-content">
+							<div class="row tabs active">
+								<div class="col-md-12">
+									<table class="table table-hover">
+										<thead>
+											<#list categories as category>
+											<tr>
+												<th class="name"><input type="text" class="text"
+													value="${category.name}" placeholder="请输入">
+													<button type="button" data-opid="${category.id}"
+														class="login-button">修改</button></th>
+											</tr>
+											</#list>
+										</thead>
+										</tbody>
+									</table>
+								</div>
+							</div>
+
+
+							<div class="row tabs">
+								<input type="text" placeholder="请输入" id="addText">
+								<button type="button" id="add">确定</button>
+							</div>
+
+							<div class="row tabs">
+								<input type="text" value="文章">
+							</div>
+						</div>
+					</div>
+					<div class="correct" style="display: none">
+						<input type="text" value="修改">
+						<button type="button" class="logins-button">确定修改</button>
+						</th>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script type="text/javascript" src="../js/jquery-2.1.1.min.js"></script>
+	<script>
+		$(function() {
+			$("#nav-tabs-solidlist").find("li").on("click",function() {
+				$(this).addClass("active").siblings().removeClass("active");
+						var index = $(this).index();
+						$(".tabs").eq(index).siblings().removeClass("active").fadeOut(500,function(){
+								$(".tabs").eq(index).fadeIn(500).addClass("active");
+						});
+					});
+				//调用修改的方法  
+				mkcare.update();
+				//调用添加的方法
+				mkcare.add();
+		});
+		var mkcare = {
+			/**
+			 *修改
+			 */
+			update : function() {
+				$(".login-button").on("click", function() {
+					var name = $(this).prev(".text").val();
+					var id = $(this).data("opid");
+					//alert(id+"==="+name);
+					$.ajax({
+						type : "post",
+						url : "upcategory/" + name + "/" + id,
+						success : function(data) {
+							if (data == "success") {
+								alert("修改成功");
+							} else {
+								alert("修改失败");
+								$(this).prev(".text").val("").focus();
+							}
+						}
+					});
+				});
+			},
+			/**
+			 *添加
+			 */
+			add : function() {
+				$("#add").on("click", function() {
+					var name =$("#addText").val();
+					var param = {"name":name};
+					$.ajax({
+						type : "post",
+						url : "addcategory",
+						data : param,
+						success : function(data){
+							if(data){
+								alert("添加成功");
+								$(".table ").append("<tr>"+
+										" <th class='name'>"+
+										" <input type='text' class='text' value='"+name+"' placeholder='请输入'>"+
+										" <button type='button' data-opid='"+data.id+"'class='login-button'>修改</button>"+
+										" </th>"+
+										" </tr>");
+							}else{
+								alert("添加失败");		
+								$(this).val("").focus();
+							}	
+						}
+					});
+				});
+			}
+		}
+	</script>
+</body>
+</html>

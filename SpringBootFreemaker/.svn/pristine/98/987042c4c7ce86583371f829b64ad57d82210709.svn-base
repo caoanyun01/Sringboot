@@ -1,0 +1,10 @@
+
+<#list comments as comment>
+<tr>
+	<th scope="row">${comment.id}</th>
+	<td>${comment.contentId}</td>
+	<td>${comment.content}</td>
+	<td>${(comment.createTime)?string("YYYY-MM-DD HH:MM:SS")}</td>
+	<td><button onclick='remove(this);'>É¾³ý</button></td>
+</tr>
+</#list>

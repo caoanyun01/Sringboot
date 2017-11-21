@@ -1,0 +1,49 @@
+<#list contents as content>
+<tr>
+	<th scope="row">${content.id}</th>
+	<td><textarea rows="5" cols="40" id="title">${content.title}</textarea></td>
+	<td><img src="${content.img}" alt="" onerror="imgError2(this)"
+		width="300" height="100">
+		<div class="fileimg" style="display:none">
+			<input type="hidden" class="inpt img" id="img"
+				readonly="readonly" name="img" placeholder="封面图片" /> <span
+				class="btn btn-success fileinput-button"> <i
+				class="glyphicon glyphicon-plus"></i> <span>Select
+				files...</span> <input class="fileupload" type="file" name="doc" multiple></span>
+				<div id="progress" class="progress">
+				<div class="progress-bar progress-bar-success"></div>
+			</div>
+			<div id="files" class="files"></div>
+		</div></td>
+	<td><label><input type="radio" name="status${content.id}"
+			value="1"
+		<#if content.status==1>checked</#if> />发布</label> &nbsp;&nbsp;&nbsp; <label><input
+			type="radio" name="status${content.id}" value="0"
+		<#if content.status==0>checked</#if> />未发布</label></td>
+	<td><button class="eixt" data-opid="${content.id}">更新</button></td>
+	<td><button class="del" data-opid="${content.id}">删除</button></td>
+</tr>
+</#list>
+<script>
+$(function(){
+	//文件上传
+	var url = "${basePath}/upload/file";
+	$('.fileupload').fileupload(
+			{
+				url : url,
+				dataType : 'json',
+				paramName : "doc",
+				done : function(e, data) {
+					var json = data.result;
+					//将上传的url传入
+					$("#img").val(json.path);
+				},
+				progressall : function(e, data) {
+					var progress = parseInt(data.loaded / data.total
+							* 100, 10);
+					$('#progress .progress-bar').css('width',
+							progress + '%');
+			}
+	});
+});
+</script>

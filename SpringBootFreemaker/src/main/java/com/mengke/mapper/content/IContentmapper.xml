@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mengke.mapper.content.IContentmapper">
+	<select id="findContent" resultType="hashmap" parameterType="params">
+		SELECT 
+			a.id,
+			a.title,
+			a.img,
+			a.create_time as createTime,
+			a.`status`,
+			a.category_id as categoryId,
+			a.hits,
+			a.loves,
+			a.user_id as userId,
+			b.username,
+			b.header_pic as headerPic ,
+			c.`name`
+	FROM
+		mk_content a
+		LEFT JOIN mk_user b ON a.user_id = b.id
+		LEFT JOIN mk_category c ON a.category_id= c.id
+		<trim prefixOverrides="and | or" prefix="where">
+			<if test="status!=null">
+				a.status =#{status}
+			</if>
+			<if test="categoryId!=null">
+				and a.category_id=#{categoryId}
+			</if>
+		</trim>
+		ORDER by a.create_time DESC LIMIT #{pageNo},#{pageSize}
+	</select>
+	<select id="Contsums" resultType="int">
+		SELECT
+			COUNT(1)
+		FROM
+			mk_content
+	</select>
+	<delete id="delcontent" parameterType="Integer">
+		DELETE
+		FROM
+			mk_content
+		WHERE
+			id =#{id}
+	</delete>
+</mapper>

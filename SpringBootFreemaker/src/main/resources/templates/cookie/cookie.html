@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title></title>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport"
+	content="width=device-width,initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<#include "/public/common.html">	
+
+</head>
+<body class="site-menubar-fold site-menubar-keep">
+	<!-- 引入左侧导航栏 -->
+	<#include "/left.html">	
+	<div class="page profile profile_index">
+		<div class="page-content">
+			<div calss="row">
+				<div style="background:#fff;padding:30px;color=#333">
+				<h1>Cookie和Storpage</h1>
+				<p>描述：</p>
+				<h2>通过stroage模拟qq空间，微博数据本地储</h2>
+				<textarea style="whidth=1000;height=80px" id="contant">
+				</textarea>
+				<script type="text/javascript" src="../js/jquery-2.1.1.min.js">
+				$(function(){
+					$("#contant").on("onkeydown",function(){
+						console.log($(this).val());
+					})
+				})
+				</script>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+</body>
+</html>

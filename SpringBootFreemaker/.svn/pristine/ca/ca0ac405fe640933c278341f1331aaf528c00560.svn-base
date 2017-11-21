@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mengke.mapper.comment.ICommentMapper">
+	<select id="getcomment" resultType="comment">
+		SELECT id,
+		user_id as userId,
+		content,
+		content_id as contentId,
+		create_time as createTime,
+		`status` FROM mk_comment 
+	</select>
+	<select id="findComment" resultType="comment" parameterType="param">
+		SELECT id,
+		user_id as userId,
+		content,
+		content_id as contentId,
+		create_time as createTime,
+		`status`
+       FROM
+	      mk_comment
+       ORDER BY
+	     create_time DESC
+       LIMIT #{pageNo},
+         #{pageSize}
+	</select>
+
+</mapper>

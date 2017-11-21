@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mengke.mapper.banner.IBannerMapper">
+	<select id="findContents" resultType="content" parameterType="param">
+		SELECT
+	      id,
+	      title,
+	      img,
+	     `status`
+       FROM
+	      mk_content
+       ORDER BY
+	     create_time DESC
+       LIMIT #{pageNo},
+         #{pageSize}
+	</select>
+	
+	<select id="sumContents" resultType="int">
+		SELECT
+			COUNT(1)
+		FROM
+			mk_content
+	</select>
+	
+	<insert id="save" parameterType="content">
+		INSERT INTO mk_content (title, img, STATUS)
+			VALUES
+				(#{title},#{img},#{status}) 
+	</insert>
+	
+	<delete id="delBanner" parameterType="Integer">
+		DELETE
+		FROM
+			mk_content
+		WHERE
+			id =#{id}
+	</delete>
+	
+	<update id="updateBanner" parameterType="content">
+		UPDATE mk_content
+		SET 
+			title =#{title},
+ 			img =#{img}, 
+ 			`status` =#{status},
+ 			update_time =sysdate()
+		WHERE
+			id =#{id}
+	</update>
+</mapper>

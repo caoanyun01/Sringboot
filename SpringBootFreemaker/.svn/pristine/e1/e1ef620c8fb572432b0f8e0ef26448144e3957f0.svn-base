@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.mengke.mapper.category.ICategorymapper">
+	<!-- 查询所有 -->
+	<select id="getCategory" resultType="Category">
+		select id,name,create_time,`status` from mk_category
+	</select>
+	
+	<!-- 修改 -->
+	<update id="updateCategory" parameterType="category">
+		UPDATE mk_category SET name = #{name}
+		WHERE id = #{id}
+	</update>
+	
+	<!-- 添加 -->
+	<insert id="addCategory" parameterType="category">
+		INSERT into mk_category (name,STATUS) 
+		VALUES(#{name},#{status})
+	</insert>
+</mapper>
