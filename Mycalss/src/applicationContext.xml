@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mybatis="http://mybatis.org/schema/mybatis-spring"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-4.0.xsd 
+    http://www.springframework.org/schema/aop 
+    http://www.springframework.org/schema/aop/spring-aop-4.0.xsd 
+    http://www.springframework.org/schema/tx
+    http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context-4.0.xsd
+    http://mybatis.org/schema/mybatis-spring
+    http://mybatis.org/schema/mybatis-spring-1.2.xsd  ">
+    
+	<!-- mybatis:scan会讲com.newer.mapper下面所有的接口，自动注入到spring的beanFactory中 -->
+	<mybatis:scan base-package="com.mk.mapper"/>
+	<!-- 扫描com.newer下面所有的java文件，有spring相关注解的类都会自动注入到Spring的BeanFactory中 -->
+	<!-- <context:component-scan base-package="com.newer"></context:component-scan> -->
+	<!-- 使用org.springframework.beans.factory.config.PropertyOverrideConfigurer后处理加载数据源参数 -->
+	 <context:property-override location="classpath:jdbc.properties"/>
+	<!-- 配置 c3p0数据源 -->
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"></bean> 
+	
+	<!-- 配置SqlSessionFactory,org.mybatis.spring.SqlSessionFactoryBean是mybatis社区开发用于整合Spring的类 -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"></property>
+		<property name="typeAliasesPackage" value="com.mk.bean"></property>
+		<property name="mapperLocations" value="classpath:com/mapper/xml/*.xml"></property>
+	</bean>
+	
+	<!-- 配置jdbc事务 -->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+	
+	<!-- 启动支持annatation的注解方式事务管理 -->
+	<tx:annotation-driven transaction-manager="transactionManager"/>
+</beans>
